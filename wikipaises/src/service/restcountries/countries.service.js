@@ -2,21 +2,21 @@
 import { api } from './countries.api.js';
 
 export const CountriesService = {
-  // 1. Busca todos os países (Para a tela Home inicial)
+  // 1. Busca todos os países (CORRIGIDO: adicionamos o ?fields=...)
   getAll: async () => {
-    const response = await api.get('/all');
+    const response = await api.get('/all?fields=cca3,flags,name,region');
     return response.data;
   },
 
-  // 2. Busca países por continente (Para o filtro Select)
+  // 2. Busca países por continente
   getByRegion: async (region) => {
-    const response = await api.get(`/region/${region}`);
+    const response = await api.get(`/region/${region}?fields=cca3,flags,name,region`);
     return response.data;
   },
 
-  // 3. Busca países por texto (Para a barra de pesquisa)
+  // 3. Busca países por texto
   getByName: async (name) => {
-    const response = await api.get(`/name/${name}`);
+    const response = await api.get(`/name/${name}?fields=cca3,flags,name,region`);
     return response.data;
   },
 
