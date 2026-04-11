@@ -5,7 +5,7 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   overflow: hidden;
   text-decoration: none; /* Tira o sublinhado do link */
-  color: #333;
+  color: #000000;
   transition: transform 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -29,10 +29,11 @@
 .card-title {
   margin: 0 0 0.5rem 0;
   font-size: 1.2rem;
+  color: #000000;
 }
 
 .card-region {
   margin: 0;
-  color: #666;
+  color: #000000;
   font-size: 0.9rem;
 }
