@@ -1,0 +1,41 @@
+/* src/pages/Home/Home.css */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.pagination-button {
+  padding: 0.6rem 1.5rem;
+  background-color: #1a1a1a; /* Mesma cor do botão Voltar e do Header */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+/* Efeito ao passar o mouse (apenas se o botão não estiver desativado) */
+.pagination-button:hover:not(:disabled) {
+  background-color: #333;
+}
+
+/* Estilo para quando estiver na primeira ou última página */
+.pagination-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pagination-info {
+  font-weight: bold;
+  color: #212529;
+  font-size: 1.1rem;
+}

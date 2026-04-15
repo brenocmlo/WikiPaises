@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react';
 import { CountriesService } from '../../service/restcountries/countries.service';
-import { Card } from '../../components/Card/Card'; // <-- ADICIONE ESTA IMPORTAÇÃO
+import { Card } from '../../components/Card/Card';
+import './Home.css'; 
 
 export const Home = () => {
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [selectedRegion, setSelectedRegion] = useState('');
+
+  // 1. Estados da Paginação
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -17,22 +24,122 @@ export const Home = () => {
     fetchCountries();
   }, []);
 
+  // 2. Voltar para a página 1 ao pesquisar/filtrar
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedRegion]);
+
+  const filteredCountries = countries.filter((country) => {
+    const matchesName = country.name.common
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());  
+    const matchesRegion = selectedRegion === '' || country.region === selectedRegion;
+    return matchesName && matchesRegion;
+  });
+
+  // 3. Lógica matemática da Paginação
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCountries = filteredCountries.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredCountries.length / itemsPerPage);
+
+  const goToNextPage = () => setCurrentPage((prev) => prev + 1);
+  const goToPreviousPage = () => setCurrentPage((prev) => prev - 1);
+
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Lista de Países</h1>
+    <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+      {/* COR ALTERADA: Agora usa a variável de cor do título */}
+      <h1 style={{ marginBottom: '1.5rem', color: 'var(--title-color)' }}>Explorar Países</h1>
       
-      {/* Container em Grid para alinhar os cards lado a lado */}
       <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
-        gap: '2rem',
-        marginTop: '2rem'
+        display: 'flex', 
+        gap: '1rem', 
+        marginBottom: '2rem',
+        flexWrap: 'wrap' 
       }}>
-        {/* O .map percorre a lista de países e cria um componente Card para cada um */}
-        {countries.map((country) => (
-          <Card key={country.cca3} country={country} />
-        ))}
+        <input 
+          type="text" 
+          placeholder="Pesquisar por país..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{
+            padding: '0.8rem 1rem',
+            borderRadius: '6px',
+            border: '1px solid var(--border-color)', /* COR ALTERADA */
+            backgroundColor: 'var(--input-bg)',      /* COR ALTERADA */
+            color: 'var(--text-color)',              /* COR ALTERADA */
+            flex: '1', 
+            minWidth: '200px',
+            fontSize: '1rem'
+          }}
+        />
+
+        <select 
+          value={selectedRegion} 
+          onChange={(e) => setSelectedRegion(e.target.value)}
+          style={{
+            padding: '0.8rem 1rem',
+            borderRadius: '6px',
+            border: '1px solid var(--border-color)', /* COR ALTERADA */
+            backgroundColor: 'var(--input-bg)',      /* COR ALTERADA */
+            color: 'var(--text-color)',              /* COR ALTERADA */
+            fontSize: '1rem',
+            minWidth: '150px'
+          }}
+        >
+          <option value="">Todos os Continentes</option>
+          <option value="Americas">Américas</option>
+          <option value="Europe">Europa</option>
+          <option value="Asia">Ásia</option>
+          <option value="Africa">África</option>
+          <option value="Oceania">Oceania</option>
+        </select>
       </div>
+
+      {filteredCountries.length === 0 ? (
+        <p style={{ textAlign: 'center', fontSize: '1.2rem', color: 'var(--text-color)', marginTop: '3rem' }}>
+          Nenhum país encontrado para essa busca. 
+        </p>
+      ) : (
+        <>
+          <div style={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: '2rem',
+            justifyContent: 'center'
+          }}>
+            {currentCountries.map((country) => (
+              <div style={{ width: '250px' }} key={country.cca3}>
+                <Card country={country} />
+              </div>
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="pagination-container">
+              <button 
+                className="pagination-button"
+                onClick={goToPreviousPage} 
+                disabled={currentPage === 1}
+              >
+                ← Anterior
+              </button>
+              
+              <span className="pagination-info" style={{ color: 'var(--text-color)' }}>
+                Página {currentPage} de {totalPages}
+              </span>
+
+              <button 
+                className="pagination-button"
+                onClick={goToNextPage} 
+                disabled={currentPage === totalPages}
+              >
+                Próxima →
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
