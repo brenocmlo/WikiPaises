@@ -1,11 +1,11 @@
 /* src/components/Card/Card.css */
 .card-container {
-  background-color: var(--element-bg); /* <-- Variável no lugar de #fff */
+  background-color: var(--element-bg); 
   border-radius: 8px;
   box-shadow: 0 4px 8px var(--shadow-color);
   overflow: hidden;
   text-decoration: none; 
-  color: var(--text-color); /* <-- Variável no lugar de #333 */
+  color: var(--text-color); 
   transition: transform 0.2s ease-in-out, background-color 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -30,11 +30,11 @@
 .card-title {
   margin: 0 0 0.5rem 0;
   font-size: 1.2rem;
-  color: var(--text-color); /* <-- Variável! */
+  color: var(--text-color); 
 }
 
 .card-region {
   margin: 0;
-  color: var(--title-color); /* <-- Variável! */
+  color: var(--title-color); 
   font-size: 0.9rem;
 }

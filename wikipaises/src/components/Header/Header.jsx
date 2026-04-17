@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export const Header = () => {
   const [isDark, setIsDark] = useState(false);
 
-  // Efeito que troca o tema no HTML
   useEffect(() => {
     if (isDark) {
       document.body.setAttribute('data-theme', 'dark');
@@ -20,12 +19,11 @@ export const Header = () => {
       justifyContent: 'space-between', 
       alignItems: 'center',
       padding: '1.5rem 2rem', 
-      backgroundColor: 'var(--element-bg)', /* Usa variável */
+      backgroundColor: 'var(--element-bg)', 
       boxShadow: '0 2px 4px var(--shadow-color)',
       transition: 'background-color 0.3s ease'
     }}>
       
-      {/* O Link faz o título voltar para a Home ao ser clicado */}
       <Link to="/" style={{ textDecoration: 'none', color: 'var(--text-color)' }}>
         <h2 style={{ margin: 0 }}>WikiPaíses</h2>
       </Link>
@@ -37,8 +35,8 @@ export const Header = () => {
           cursor: 'pointer',
           border: `1px solid var(--border-color)`,
           borderRadius: '8px',
-          backgroundColor: 'var(--input-bg)', /* Usa variável */
-          color: 'var(--text-color)',         /* Usa variável */
+          backgroundColor: 'var(--input-bg)', 
+          color: 'var(--text-color)',         
           fontWeight: 'bold',
           transition: 'all 0.3s ease'
         }}

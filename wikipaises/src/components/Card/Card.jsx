@@ -2,10 +2,9 @@
 import { Link } from 'react-router-dom';
 import './Card.css';
 
-// Recebemos a "prop" country com os dados do país
+
 export const Card = ({ country }) => {
   return (
-    // Quando clicar, vai para /country/BRA (por exemplo) usando o código cca3
     <Link to={`/country/${country.cca3}`} className="card-container">
       <img 
         src={country.flags.svg} 

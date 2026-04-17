@@ -8,7 +8,6 @@ export const Home = () => {
   const [searchTerm, setSearchTerm] = useState(''); 
   const [selectedRegion, setSelectedRegion] = useState('');
 
-  // 1. Estados da Paginação
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
@@ -24,7 +23,6 @@ export const Home = () => {
     fetchCountries();
   }, []);
 
-  // 2. Voltar para a página 1 ao pesquisar/filtrar
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, selectedRegion]);
@@ -48,7 +46,6 @@ export const Home = () => {
 
   return (
     <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      {/* COR ALTERADA: Agora usa a variável de cor do título */}
       <h1 style={{ marginBottom: '1.5rem', color: 'var(--title-color)' }}>Explorar Países</h1>
       
       <div style={{ 
@@ -65,9 +62,9 @@ export const Home = () => {
           style={{
             padding: '0.8rem 1rem',
             borderRadius: '6px',
-            border: '1px solid var(--border-color)', /* COR ALTERADA */
-            backgroundColor: 'var(--input-bg)',      /* COR ALTERADA */
-            color: 'var(--text-color)',              /* COR ALTERADA */
+            border: '1px solid var(--border-color)', 
+            backgroundColor: 'var(--input-bg)',      
+            color: 'var(--text-color)',              
             flex: '1', 
             minWidth: '200px',
             fontSize: '1rem'
@@ -80,9 +77,9 @@ export const Home = () => {
           style={{
             padding: '0.8rem 1rem',
             borderRadius: '6px',
-            border: '1px solid var(--border-color)', /* COR ALTERADA */
-            backgroundColor: 'var(--input-bg)',      /* COR ALTERADA */
-            color: 'var(--text-color)',              /* COR ALTERADA */
+            border: '1px solid var(--border-color)', 
+            backgroundColor: 'var(--input-bg)',      
+            color: 'var(--text-color)',              
             fontSize: '1rem',
             minWidth: '150px'
           }}
